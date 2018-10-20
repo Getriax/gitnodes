@@ -9,7 +9,7 @@
 * in your `.gitconfig` file create aliases:
 
       [alias]
-      bri = "!node ~/.gitnodes/branch.ls.js"
-      coi = "!node ~/.gitnodes/checkout.js"
+      bri = "!node PATH_TO_GITNODES_FOLDER/branch.ls.js"
+      coi = "!node PATH_TO_GITNODES_FOLDER/checkout.js"
       
 :warning: **node is required to use this feature** :warning:
