@@ -2,7 +2,7 @@ const { getBranches } = require('./branches.service');
 
 const applyIndexesAndPrint = (branches) => {
   const indexedBranches = branches.map((branch, index) => branch.includes('*')
-  ?`[*] ${branch.split('*')[1].trim()}`
+  ? `[*] ${branch.split('*')[1].trim()}`
   : `[${index + 1}] ${branch}`);
 
   indexedBranches.forEach(branch => branch.includes('*')
