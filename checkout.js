@@ -1,4 +1,4 @@
-const { performCheckout } = require('./branches.service');
+const { performCheckout } = require('./git.service');
 
 const getBranchIndex = () => {
   return process.argv[2] - 1;

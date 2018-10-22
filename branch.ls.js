@@ -1,4 +1,4 @@
-const { getBranches } = require('./branches.service');
+const { getBranches } = require('./git.service');
 
 const applyIndexesAndPrint = (branches) => {
   const indexedBranches = branches.map((branch, index) => branch.includes('*')
