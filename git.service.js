@@ -21,11 +21,39 @@ const performCheckout = async (index) => {
     throw new Error(`Already on \'${branches[index]}\'`);
   }
 
-  exec(`git checkout ${branches[index]}`);
-  return `Switched to branch \'${branches[index]}\'`
+  const { stderr } = await exec(`git checkout ${branches[index]}`);
+
+  return stderr;
+}
+
+const deleteBranch = async (name, origin) => {
+  const local = await exec(`git branch -D ${name}`);
+  console.log(local.stdout);
+
+  if (origin) {
+    const remote = await exec(`git push ${origin} --delete ${name}`);
+    console.log(remote.stderr);
+  }
+}
+
+const deleteBranches = async ({ indexes = [], origin }) => {
+  const branches = await getBranches();
+
+  return Promise.all(indexes.map((index) => {
+    if (!(index in branches)) {
+      throw new Error(`Index #${index} of branches does not exist,\nrun git br first!`);
+    }
+
+    if (branches[index].includes('*')) {
+      throw new Error(`Cannot delete branch \'${branches[index]}\' is checked out`);
+    }
+
+    return deleteBranch(branches[index], origin);
+  }));
 }
 
 module.exports = {
   getBranches,
   performCheckout,
+  deleteBranches,
 }
